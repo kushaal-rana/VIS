@@ -1,38 +1,51 @@
-.App {
+.hist{
+  margin-left: 400px;
+  margin-top: 50px;
+}
+
+/* Style the side navigation menu */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #30da98;
+  padding-top: 20px;
+}
+h3{
+  padding-left: 25px;
+  margin-top: 50px;
+  text-decoration: none;
+  font-size: 22px;
+  color: #000000;
+  display: block;
+}
+/* Style the links inside the side navigation menu */
+ .sidenav a {
+  padding: 5px 25px;
+  font-weight: 450;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+  display: block;
+}
+
+/* Change the color of the links on hover */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+
+
+
+.navbar {
   text-align: center;
+  background-color: #30da98;
+  padding: 25px;
+  margin-bottom: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.heading {
+  margin: 0; /* Remove default margin */
 }
