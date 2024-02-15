@@ -8,7 +8,7 @@ function BarChart(data) {
     setIsRotated(!isRotated);
   };
 
-  const dataArray = Object.keys(data).map((key) => ({
+  const dataArray = Object.keys(data)?.map((key) => ({
     category: key,
     count: data[key],
   }));
@@ -16,7 +16,7 @@ function BarChart(data) {
   data = dataArray[0].count;
 
   useEffect(() => {
-    const categoryCounts = data.reduce((acc, category) => {
+    const categoryCounts = data?.reduce((acc, category) => {
       acc[category] = (acc[category] || 0) + 1;
       return acc;
     }, {});
@@ -24,8 +24,8 @@ function BarChart(data) {
     const categories = Object.keys(categoryCounts);
     const counts = Object.values(categoryCounts);
 
-    const width = 960;
-    const height = 500;
+    const width = 1000;
+    const height = 600;
     const margin = { top: 10, right: 10, bottom: 100, left: 40 };
 
     const svg = d3
@@ -79,8 +79,8 @@ function BarChart(data) {
       .text("Count");
 
     if (isRotated) {
-        const width = 960;
-        const height = 700;
+      const width = 1000;
+      const height = 600;
         const margin = { top: 10, right: 10, bottom: 100, left: 80 };
       const svg = d3
         .select("#bar-chart")
@@ -172,7 +172,7 @@ function BarChart(data) {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center" ,   marginTop: "130px"}}>
         <svg id="bar-chart"></svg>
         <div>
           <button onClick={toggleOrientation}>Toggle Orientation</button>

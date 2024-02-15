@@ -9,6 +9,7 @@ function App() {
   const [data, setData] = useState(null);
   const [isNumeric, setIsNumeric] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [selectedKey, setSelectedKey] = useState(null);
 
   const nameMapping = {
     finalWorth: "FinalWorth",
@@ -33,12 +34,22 @@ function App() {
     d3.csv(dataSet).then((csvData) => {
       // Parse data as needed
       setData(csvData);
+      debugger
+      const selectedData = csvData?.map((d) => {
+        if (!isNaN(parseInt(d["age"]))) {
+          return parseInt(d["age"]);
+        } else {
+          return d["age"];
+        }
+      });
+      setSelectedData(selectedData);
+      setIsNumeric(!isNaN(parseInt(selectedData[0])));
     });
   }, []);
 
   const handleClick = (selectedKey) => {
-    debugger;
-   const selectedData = data.map((d) => {
+    setSelectedKey(selectedKey);
+   const selectedData = data?.map((d) => {
       if (!isNaN(parseInt(d[selectedKey]))) {
         return parseInt(d[selectedKey]);
       } else {
@@ -63,7 +74,7 @@ function App() {
         ))}
       </div>
 
-      {selectedData && isNumeric && <ChartComponent data={selectedData} />}
+      { isNumeric && <ChartComponent data={selectedData} selectedKey={nameMapping[selectedKey]} />}
       {selectedData && (!isNumeric) && <BarChart data={selectedData} />}
     </div>
   );
