@@ -8,7 +8,7 @@ const ScatterPlot = ({ data }) => {
   const [selectedAxis, setSelectedAxis] = useState("x");
 
   // Dimensions and margins for the plot
-  const margin = { top: 20, right: 30, bottom: 100, left: 90 };
+  const margin = { top: 20, right: 10, bottom: 100, left: 120 };
   const width = 900;
   const height = 600;
   if (!data) return null;
@@ -108,18 +108,18 @@ const yScale = d3
           {/* X Axis label */}
           <text
             textAnchor="middle"
-            transform={`translate(${width / 2}, ${height + margin.top + 20})`}
-            style={{ fontSize: "14px" }}
+            transform={`translate(${width / 2}, ${height + margin.top + 60})`}
+            style={{ fontSize: "20px", fontWeight: "bold" }}
           >
             {xVariable}
           </text>
           {/* Y Axis label */}
           <text
             textAnchor="middle"
-            transform={`translate(${-margin.left + 20}, ${
+            transform={`translate(${-margin.left + 15}, ${
               height / 2
             }) rotate(-90)`}
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: "20px", fontWeight: "bold" }}
           >
             {yVariable}
           </text>
