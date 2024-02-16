@@ -32,6 +32,40 @@ h3{
 .sidenav a:hover {
   color: #f1f1f1;
 }
+/* Radio buttons for selecting X or Y axis */
+.radio-group {
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Dropdown to select attribute for X or Y axis */
+.select-container {
+  margin-bottom: 20px;
+}
+
+.select-container select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.select-container select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.select-conta
 
 
 

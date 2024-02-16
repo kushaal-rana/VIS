@@ -21,8 +21,8 @@ function BarChart(data) {
       return acc;
     }, {});
 
-    const categories = Object.keys(categoryCounts);
-    const counts = Object.values(categoryCounts);
+    const categories = Object?.keys(categoryCounts);
+    const counts = Object?.values(categoryCounts);
 
     const width = 1000;
     const height = 600;
@@ -56,7 +56,7 @@ function BarChart(data) {
       .attr("y", (d) => yScale(categoryCounts[d]))
       .attr("height", (d) => height - margin.bottom - yScale(categoryCounts[d]))
       .attr("width", xScale.bandwidth())
-      .attr("fill", "steelblue");
+      .attr("fill", "#97294f");
 
     svg
       .append("g")
@@ -81,7 +81,7 @@ function BarChart(data) {
     if (isRotated) {
       const width = 1000;
       const height = 600;
-        const margin = { top: 10, right: 10, bottom: 100, left: 80 };
+      const margin = { top: 10, right: 10, bottom: 100, left: 80 };
       const svg = d3
         .select("#bar-chart")
         .attr("width", width)
@@ -131,7 +131,7 @@ function BarChart(data) {
             ? yScale.bandwidth()
             : height - margin.bottom - yScale(categoryCounts[d])
         )
-        .attr("fill", "steelblue");
+        .attr("fill", "#97294f");
 
       svg
         .append("g")
@@ -172,10 +172,33 @@ function BarChart(data) {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center" ,   marginTop: "130px"}}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "130px",
+        }}
+      >
         <svg id="bar-chart"></svg>
         <div>
-          <button onClick={toggleOrientation}>Toggle Orientation</button>
+          <button
+            onClick={toggleOrientation}
+            style={{
+              backgroundColor: !isRotated ? "#4CAF50" : "#f44336",
+              border: "none", // Remove border
+              color: "white", // White text color
+              padding: "15px 32px", // Padding
+              textAlign: "center", // Center text
+              textDecoration: "none", // Remove text decoration
+              display: "inline-block", // Display as inline block
+              fontSize: "16px", // Font size
+              margin: "4px 2px", // Margin
+              cursor: "pointer", // Cursor style
+              borderRadius: "12px", // Border radius
+            }}
+          >
+            {!isRotated ? "Toggle Sideways" : "Toggle Normal"}
+          </button>
         </div>
       </div>
     </div>

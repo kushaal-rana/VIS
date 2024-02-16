@@ -3,7 +3,8 @@ import ChartComponent from "./components/ChartComponent";
 import BarChart from "./components/BarChart"
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
-import dataSet from "./Billionaires_final_dataset.csv";
+import dataSet from "./Final_dataset.csv";
+import ScatterPlot from "./components/ScatterPlot";
 
 function App() {
   const [data, setData] = useState(null);
@@ -13,9 +14,10 @@ function App() {
 
   const nameMapping = {
     finalWorth: "FinalWorth",
-    category: "Category",
     age: "Age",
     country: "Country",
+    state:"State",
+    residenceStateRegion: "Region",
     industries: "Industry",
     birthYear: "Birth Year",
     birthMonth: "Birth Month",
@@ -26,6 +28,7 @@ function App() {
     life_expectancy_country: "Life Expectency",
     tax_revenue_country_country: "Tax Revenu",
     total_tax_rate_country: "Total Tax",
+
     population_country: "Population",
   };
 
@@ -34,7 +37,6 @@ function App() {
     d3.csv(dataSet).then((csvData) => {
       // Parse data as needed
       setData(csvData);
-      debugger
       const selectedData = csvData?.map((d) => {
         if (!isNaN(parseInt(d["age"]))) {
           return parseInt(d["age"]);
@@ -59,7 +61,8 @@ function App() {
     setSelectedData(selectedData);
     setIsNumeric(!isNaN(parseInt(selectedData[0])));
   };
-  
+
+
   return (
     <div>
       <nav className="navbar">
@@ -76,6 +79,12 @@ function App() {
 
       { isNumeric && <ChartComponent data={selectedData} selectedKey={nameMapping[selectedKey]} />}
       {selectedData && (!isNumeric) && <BarChart data={selectedData} />}
+      <div style={{ display: "flex", justifyContent: "center",  marginTop: "130px", marginBottom:"140px" }}>
+      <div>
+      <h1>Scatter Plot</h1>
+      <ScatterPlot data={data} />
+    </div>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import dataSet from "../Billionaires_final_dataset.csv";
 
 import * as d3 from "d3";
 
-const ChartComponent = ({ data,selectedKey }) => {
+const ChartComponent = ({ data, selectedKey }) => {
   const [isRotated, setIsRotated] = useState(false);
 
   const toggleOrientation = () => {
@@ -12,15 +11,15 @@ const ChartComponent = ({ data,selectedKey }) => {
   };
 
   useEffect(() => {
-    debugger
+    debugger;
     console.log(selectedKey);
     // Set up scales
     const width = 1000;
     const height = 600;
-    const marginTop = 20;
-    const marginRight = 20;
-    const marginBottom = 30;
-    const marginLeft = 40;
+    const marginTop = 10;
+    const marginRight = -50;
+    const marginBottom = 45;
+    const marginLeft = 100;
 
     // Bin the data.
     const bins = d3
@@ -75,8 +74,8 @@ const ChartComponent = ({ data,selectedKey }) => {
       .call((g) =>
         g
           .append("text")
-          .attr("x", width)
-          .attr("y", marginBottom - 4)
+          .attr("x", 595)
+          .attr("y", 40)
           .attr("fill", "currentColor")
           .attr("text-anchor", "end")
           .attr("font-size", "19px") // Set the font size here
@@ -92,11 +91,13 @@ const ChartComponent = ({ data,selectedKey }) => {
       .call((g) =>
         g
           .append("text")
-          .attr("x", -marginLeft)
-          .attr("y", 9)
+          .attr("x", -350)
+          .attr("y", -45)
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
-          .text("↑ Frequency (no. of counties)")
+          .attr("font-size", "19px")
+          .attr("transform", "rotate(-90)")
+          .text("↑ Frequency (No. of Billionaires)")
       );
 
     svg
@@ -147,7 +148,7 @@ const ChartComponent = ({ data,selectedKey }) => {
       // Add a rect for each bin.
       svg
         .append("g")
-        .attr("fill", "steelblue")
+        .attr("fill", "#97294f")
         .selectAll()
         .data(bins)
         .join("rect")
@@ -205,10 +206,34 @@ const ChartComponent = ({ data,selectedKey }) => {
 
   return (
     <div>
-      <div class="hist" style={{ display: "flex", justifyContent: "center",  marginTop: "130px" }}>
+      <div
+        class="hist"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "130px",
+        }}
+      >
         <svg id="histogram"></svg>
         <div>
-          <button onClick={toggleOrientation}>Toggle Orientation</button>
+          <button
+            onClick={toggleOrientation}
+            style={{
+              backgroundColor: !isRotated ? "#4CAF50" : "#f44336",
+              border: "none", // Remove border
+              color: "white", // White text color
+              padding: "15px 32px", // Padding
+              textAlign: "center", // Center text
+              textDecoration: "none", // Remove text decoration
+              display: "inline-block", // Display as inline block
+              fontSize: "16px", // Font size
+              margin: "4px 2px", // Margin
+              cursor: "pointer", // Cursor style
+              borderRadius: "12px", // Border radius
+            }}
+          >
+            {!isRotated ? "Toggle Sideways" : "Toggle Normal"}
+          </button>
         </div>
       </div>
     </div>
