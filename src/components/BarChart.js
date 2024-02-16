@@ -176,8 +176,8 @@ function BarChart({data,selectedKey}) {
         .attr("x", width / 2)
         .attr("y", height - margin.bottom / 2)
         .attr("text-anchor", "middle")
-        .text(isRotated ? "Count" : "Category");
-
+        .attr("font-size", "19px")
+        .text(isRotated ? "→ Frequency (no. of counties)" : selectedKey);
       svg
         .append("text")
         .attr(
@@ -185,7 +185,8 @@ function BarChart({data,selectedKey}) {
           `translate(${margin.left / 7},${height / 2}) rotate(-90)`
         )
         .attr("text-anchor", "middle")
-        .text(isRotated ? "Category" : "Count");
+        .attr("font-size", "17px")
+        .text(isRotated ? selectedKey : "→ Frequency (no. of counties)");
     }
   }, [data, isRotated]);
 
