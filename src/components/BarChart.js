@@ -1,19 +1,19 @@
 import * as d3 from "d3";
 import React, { useState, useEffect } from "react";
 
-function BarChart(data) {
+function BarChart({data,selectedKey}) {
   const [isRotated, setIsRotated] = useState(false);
 
   const toggleOrientation = () => {
     setIsRotated(!isRotated);
   };
 
-  const dataArray = Object.keys(data)?.map((key) => ({
-    category: key,
-    count: data[key],
-  }));
-  debugger;
-  data = dataArray[0].count;
+  // const dataArray = Object.keys(data)?.map((key) => ({
+  //   category: key,
+  //   count: data[key],
+  // }));
+  // debugger;
+  // data = dataArray[0].count;
 
   useEffect(() => {
     const categoryCounts = data?.reduce((acc, category) => {
@@ -24,11 +24,11 @@ function BarChart(data) {
     const categories = Object?.keys(categoryCounts);
     const counts = Object?.values(categoryCounts);
 
-    const width = 1000;
+    const width = 1080;
     const height = 600;
-    const margin = { top: 10, right: 10, bottom: 100, left: 40 };
+    const margin = { top: 10, right: -10, bottom: 100, left: 90 };
 
-    const svg = d3
+    const svg = d3  
       .select("#bar-chart")
       .attr("width", width)
       .attr("height", height);
@@ -59,25 +59,44 @@ function BarChart(data) {
       .attr("fill", "#97294f");
 
     svg
-      .append("g")
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale))
-      .selectAll("text")
-      .attr("dy", "1em")
-      .attr("transform", "rotate(-45)")
-      .style("text-anchor", "end");
+    .append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(xScale))
+    .selectAll("text")
+    .attr("dy", "0.5em")
+    .attr("dx", "-1em")
+    .attr("transform", "rotate(-45)")
+    .style("text-anchor", "end");
 
     svg
       .append("g")
       .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(yScale).ticks(null, "s"))
       .append("text")
-      .attr("x", -margin.left)
-      .attr("y", 10)
+      .attr("x", -270)
+      .attr("y", -45)
+      .attr("font-size","19px")
       .attr("fill", "currentColor")
       .attr("text-anchor", "start")
-      .text("Count");
-
+      .text("→ Frequency (no. of counties)")
+      .attr("transform", "rotate(-90) translate(-70, 0)"); // Rotate and translate
+      
+      svg
+      .append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", 595)
+          .attr("y", 75)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "end")
+          
+          .attr("font-size", "19px") // Set the font size here
+          .text(selectedKey)
+          
+      );
     if (isRotated) {
       const width = 1000;
       const height = 600;
@@ -176,7 +195,7 @@ function BarChart(data) {
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "130px",
+          marginTop: "40px",
         }}
       >
         <svg id="bar-chart"></svg>

@@ -4,8 +4,30 @@ import * as d3 from "d3";
 const ScatterPlot = ({ data }) => {
   // State for selected variables and axis assignment
   const [xVariable, setXVariable] = useState("finalWorth");
+  const [xText, setXText] = useState("Final Worth");
+  const [yText, setYText] = useState("Age");
   const [yVariable, setYVariable] = useState("age");
   const [selectedAxis, setSelectedAxis] = useState("x");
+
+  const nameMapping = {
+    finalWorth: "FinalWorth",
+    age: "Age",
+    country: "Country",
+    state:"State",
+    residenceStateRegion: "Region",
+    industries: "Industry",
+    birthYear: "Birth Year",
+    birthMonth: "Birth Month",
+    birthDay: "Birth Day",
+    cpi_country: "CPI-Country",
+    gdp_country: "GDP",
+    gross_primary_education_enrollment_country: "Edu Enrollement",
+    life_expectancy_country: "Life Expectency",
+    tax_revenue_country_country: "Tax Revenu",
+    total_tax_rate_country: "Total Tax",
+    population_country: "Population",
+  };
+
 
   // Dimensions and margins for the plot
   const margin = { top: 20, right: 10, bottom: 100, left: 120 };
@@ -19,9 +41,6 @@ const ScatterPlot = ({ data }) => {
   .map((d) => d[xVariable])
   .slice(0, maxTicks)
   .sort((a, b) => a - b);
-
-  
-
 
 // Sort the y domain based on the yVariable values
 const yDomain = data
@@ -44,6 +63,7 @@ const yScale = d3
   .range([height, 0])
   .padding(0.1);
 
+ 
   // Handler for selecting variable for X or Y axis
   const handleAxisVariableChange = (event) => {
     const axis = event.target?.value;
@@ -55,8 +75,8 @@ const yScale = d3
     const variable = event.target?.value;
     if (selectedAxis === "x") {
       setXVariable(variable);
-    } else {
-      setYVariable(variable);
+          } else {
+            setYVariable(variable);
     }
   };
 
@@ -78,7 +98,7 @@ const yScale = d3
               cx={xScale(d[xVariable]) + xScale.bandwidth() / 2}
               cy={yScale(d[yVariable]) + yScale.bandwidth() / 2}
               r={4}
-              fill="steelblue"
+              fill="#d22f99"
             />
           ))}
           {/* Render x-axis */}
@@ -89,6 +109,7 @@ const yScale = d3
                 .select(node)
                 .call(d3.axisBottom(xScale))
                 .selectAll("text")
+                .attr("font-size", "12px")
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
                 .attr("dy", ".15em")
@@ -111,7 +132,7 @@ const yScale = d3
             transform={`translate(${width / 2}, ${height + margin.top + 60})`}
             style={{ fontSize: "20px", fontWeight: "bold" }}
           >
-            {xVariable}
+            {nameMapping[xVariable]}
           </text>
           {/* Y Axis label */}
           <text
@@ -121,7 +142,7 @@ const yScale = d3
             }) rotate(-90)`}
             style={{ fontSize: "20px", fontWeight: "bold" }}
           >
-            {yVariable}
+          {nameMapping[yVariable]}
           </text>
         </g>
       </svg>
@@ -152,9 +173,9 @@ const yScale = d3
           value={selectedAxis === "x" ? xVariable : yVariable}
           onChange={handleVariableChange}
         >
-          {attributes.map((attribute) => (
-            <option key={attribute} value={attribute}>
-              {attribute}
+          {Object.entries(nameMapping).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
             </option>
           ))}
         </select>

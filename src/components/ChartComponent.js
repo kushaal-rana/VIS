@@ -171,7 +171,7 @@ const ChartComponent = ({ data, selectedKey }) => {
           g
             .append("text")
             .attr("x", -marginLeft)
-            .attr("y", 9)
+            .attr("y", 20)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
             .text("↑ Unemployment rate (%)")
@@ -211,7 +211,7 @@ const ChartComponent = ({ data, selectedKey }) => {
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "130px",
+          marginTop: "40px",
         }}
       >
         <svg id="histogram"></svg>

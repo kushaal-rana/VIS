@@ -1,4 +1,7 @@
+.head{
+  background-color:#b2cddf ;
 
+}
 
 /* Style the side navigation menu */
 .sidenav {
@@ -21,25 +24,27 @@ h3{
 /* Style the links inside the side navigation menu */
  .sidenav a {
   padding: 5px 25px;
-  font-weight: 450;
+  font-weight: 550;
   text-decoration: none;
   font-size: 18px;
-  color: #000000;
+  color: #000000f3;
   display: block;
 }
 
 /* Change the color of the links on hover */
 .sidenav a:hover {
   color: #f1f1f1;
+  background-color: #000000;
 }
 /* Radio buttons for selecting X or Y axis */
 .radio-group {
   margin-bottom: 10px;
+  font-size: 25px;
 }
 
 .radio-group label {
   margin-right: 20px;
-  font-size: 16px;
+  font-size: 25px;
 }
 
 .radio-group input[type="radio"] {
@@ -52,11 +57,11 @@ h3{
 }
 
 .select-container select {
-  padding: 10px;
+  padding: 15px 30px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border: 1px solid #000000;
+  border-radius: 9px;
+  background-color: #89d563;
   cursor: pointer;
 }
 
@@ -65,15 +70,10 @@ h3{
   border-color: #007bff;
 }
 
-.select-conta
-
-
-
-
 .navbar {
   text-align: center;
   background-color: #30da98;
-  padding: 25px;
+  padding: 39px;
   margin-bottom: 20px;
 }
 

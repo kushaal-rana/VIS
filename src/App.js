@@ -1,6 +1,6 @@
 import "./App.css";
 import ChartComponent from "./components/ChartComponent";
-import BarChart from "./components/BarChart"
+import BarChart from "./components/BarChart";
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
 import dataSet from "./Final_dataset.csv";
@@ -16,7 +16,7 @@ function App() {
     finalWorth: "FinalWorth",
     age: "Age",
     country: "Country",
-    state:"State",
+    state: "State",
     residenceStateRegion: "Region",
     industries: "Industry",
     birthYear: "Birth Year",
@@ -28,7 +28,6 @@ function App() {
     life_expectancy_country: "Life Expectency",
     tax_revenue_country_country: "Tax Revenu",
     total_tax_rate_country: "Total Tax",
-
     population_country: "Population",
   };
 
@@ -50,8 +49,9 @@ function App() {
   }, []);
 
   const handleClick = (selectedKey) => {
+    debugger
     setSelectedKey(selectedKey);
-   const selectedData = data?.map((d) => {
+    const selectedData = data?.map((d) => {
       if (!isNaN(parseInt(d[selectedKey]))) {
         return parseInt(d[selectedKey]);
       } else {
@@ -62,9 +62,8 @@ function App() {
     setIsNumeric(!isNaN(parseInt(selectedData[0])));
   };
 
-
   return (
-    <div>
+    <div className="head">
       <nav className="navbar">
         <h1 className="heading">Billionaires Statistics Dataset</h1>
       </nav>
@@ -72,18 +71,40 @@ function App() {
         <h3>Attributes</h3>
         {Object.entries(nameMapping).map(([key, value]) => (
           <a href="#" key={key} onClick={() => handleClick(key)}>
-          {value}
-        </a>
+            {value}
+          </a>
         ))}
       </div>
+          <div style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "40px",
+          marginBottom: "140px",
+          textDecoration:"underline"
 
-      { isNumeric && <ChartComponent data={selectedData} selectedKey={nameMapping[selectedKey]} />}
-      {selectedData && (!isNumeric) && <BarChart data={selectedData} />}
-      <div style={{ display: "flex", justifyContent: "center",  marginTop: "130px", marginBottom:"140px" }}>
-      <div>
-      <h1>Scatter Plot</h1>
-      <ScatterPlot data={data} />
-    </div>
+        }}>
+            <h1>Bar Chart/Histogram</h1>
+      {isNumeric && (
+        <ChartComponent
+        data={selectedData}
+        selectedKey={nameMapping[selectedKey]}
+        />
+        )}
+      {selectedData && !isNumeric && <BarChart data={selectedData} selectedKey={nameMapping[selectedKey]} />}
+        </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "130px",
+          marginBottom: "140px",
+          textDecoration:"underline"
+        }}
+      >
+        <div>
+          <h1>Scatter Plot</h1>
+          <ScatterPlot data={data} />
+        </div>
       </div>
     </div>
   );
