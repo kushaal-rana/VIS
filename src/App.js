@@ -10,7 +10,7 @@ function App() {
   const [data, setData] = useState(null);
   const [isNumeric, setIsNumeric] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
-  const [selectedKey, setSelectedKey] = useState(null);
+  const [selectedKey, setSelectedKey] = useState("age");
 
   const nameMapping = {
     finalWorth: "FinalWorth",

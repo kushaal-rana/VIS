@@ -48,6 +48,17 @@ function BarChart({data,selectedKey}) {
     svg.selectAll("*").remove();
 
     svg
+    .selectAll("text.label")
+    .data(categories)
+    .enter()
+    .append("text")
+    .attr("class", "label")
+    .attr("x", (d) => xScale(d) + xScale.bandwidth() / 2)
+    .attr("y", (d) => yScale(categoryCounts[d]) - 5) // Adjust y position to place text above the bar
+    .attr("text-anchor", "middle")
+    .text((d) => categoryCounts[d]);
+    
+    svg
       .selectAll("rect")
       .data(categories)
       .enter()

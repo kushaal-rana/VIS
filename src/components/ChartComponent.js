@@ -11,12 +11,11 @@ const ChartComponent = ({ data, selectedKey }) => {
   };
 
   useEffect(() => {
-    debugger;
     console.log(selectedKey);
     // Set up scales
     const width = 1000;
     const height = 600;
-    const marginTop = 10;
+    const marginTop = 20;
     const marginRight = -50;
     const marginBottom = 45;
     const marginLeft = 100;
@@ -27,6 +26,8 @@ const ChartComponent = ({ data, selectedKey }) => {
       .thresholds(20)
       .value((d) => d)(data);
 
+      const maxBarHeight = d3.max(bins, (d) => d.length);
+
     // Declare the x (horizontal position) scale.
     const x = d3
       .scaleLinear()
@@ -36,7 +37,7 @@ const ChartComponent = ({ data, selectedKey }) => {
     // Declare the y (vertical position) scale.
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(bins, (d) => d.length)])
+      .domain([0, maxBarHeight + 10]) 
       .range([height - marginBottom, marginTop]);
 
     // Create the SVG container.
@@ -61,6 +62,18 @@ const ChartComponent = ({ data, selectedKey }) => {
       .attr("y", (d) => y(d.length))
       .attr("height", (d) => y(0) - y(d.length));
 
+
+      svg
+      .selectAll("text")
+      .data(bins)
+      .enter()
+      .append("text")
+      .attr("x", (d) => x(d.x0) + (x(d.x1) - x(d.x0)) / 2)
+      .attr("y", (d) => y(d.length) - 5) // Adjust the vertical position as needed
+      .attr("text-anchor", "middle")
+      .attr("fill", "black") // Adjust the color as needed
+      .attr("font-size", "12px") // Adjust the font size as needed
+      .text((d) => d.length);
     // Add the x-axis and label.
     svg
       .append("g")
@@ -97,13 +110,13 @@ const ChartComponent = ({ data, selectedKey }) => {
           .attr("text-anchor", "start")
           .attr("font-size", "19px")
           .attr("transform", "rotate(-90)")
-          .text("↑ Frequency (No. of Billionaires)")
+          .text(" Frequency (No. of Billionaires)")
       );
 
     svg
       .append("line")
       .attr("x1", marginLeft)
-      .attr("y1", 0)
+      .attr("y1", -30)
       .attr("x2", marginLeft)
       .attr("y2", height - marginBottom)
       .attr("stroke", "black")
@@ -171,10 +184,11 @@ const ChartComponent = ({ data, selectedKey }) => {
           g
             .append("text")
             .attr("x", -marginLeft)
-            .attr("y", 20)
+            .attr("y", 190)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
-            .text("↑ Unemployment rate (%)")
+            .attr("font-size", "14px") 
+            .text(selectedKey)
         );
 
       // Add the x-axis and label, and remove the domain line.
@@ -186,8 +200,9 @@ const ChartComponent = ({ data, selectedKey }) => {
         .call((g) =>
           g
             .append("text")
-            .attr("x", width)
-            .attr("y", marginBottom - 4)
+            .attr("x", 600)
+            .attr("y", marginBottom )
+            .attr("font-size", "13px") // Set the font size here
             .attr("fill", "currentColor")
             .attr("text-anchor", "end")
             .text("→ Frequency (no. of counties)")
